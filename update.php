@@ -1,16 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php 
+require_once './src/process.php';
+
+if($_GET['id']){
+	$id = $_GET['id'];
+
+	$result = $mysqli -> query("SELECT * FROM produto WHERE id = $id") or die($mysqli -> error);
+	$data = $result -> fetch_assoc();
+?>
+
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title></title>
 
     <link rel="stylesheet" href="./style/style.css">
-
-    <title>Document</title>
 </head>
 <body>
-    <div class="form">
+<div class="form">
         <form action="./src/process.php" method="post">
             <div class="input-group">
                 <label for="">Produto</label>
@@ -18,15 +23,17 @@
                     type="text"
                     name="produto"
                     placeholder="Produto"
+					value="<?php echo $data['produto'] ?>"
                 />
             </div>
             
             <div class="input-group">
-                <label for="">Validade</label>
+                <label for="">validade</label>
                 <input
                     type="text"
                     name="validade"
                     placeholder="Validade"
+					value="<?php echo $data['validade'] ?>"
                 />
             </div>
             
@@ -36,6 +43,7 @@
                     type="text"
                     name="peso"
                     placeholder="Peso"
+					value="<?php echo $data['peso'] ?>"
                 />
             </div>
             
@@ -45,25 +53,29 @@
                     type="text"
                     name="preco"
                     placeholder="Preço"
+					value="<?php echo $data['preco'] ?>"
                 />
             </div>
+
+			<input type="hidden" name="id" value="<?php echo $data['id'] ?>"/>
             
             <div class="input-group">
-                <a href="./index.php">
                     <button
                     type="submit"
-                    name="salvar"
+                    name="salvarAlteracao"
+					href="./index.php"
                     >
-                        Salvar
+                        Salvar alterações
                     </button>
-                </a>
-                <a href="./index.php">
-                    <button
-                    type="button"
-                    >
-                        Voltar
-                    </button>
-                </a>
+
+                    <a href="./index.php">
+                        <button
+                        type="button"
+                        >
+                            Voltar
+                        </button>
+                    </a>
+                   
             </div>
             
             
@@ -71,3 +83,11 @@
     </div>
 </body>
 </html>
+
+<?php
+	
+	}
+
+?>
+
+
